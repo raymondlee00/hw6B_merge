@@ -29,39 +29,37 @@ public class Merger {
       ) {
       ArrayList<String> list0 = new ArrayList<String>();
       ArrayList<String> list1 = new ArrayList<String>();
-      ArrayList<String> list2 = new ArrayList<String>();
+      Merger first = new Merger(list0);
+      Merger second = new Merger(list1);
       for(int index = start0; index < start1; index++) {
         list0.add(usersData.get(index));
       }
       for(int index = start1; index < end1; index++) {
         list1.add(usersData.get(index));
       }
-      if(list0.isSorted(0, list0.size())) {
-        sort(list0);
-      } else if(list1.isSorted(0, list1.size())) {
-        sort(list1);
-      }
       mergeRecursive(list0, list1, new ArrayList<String>());
     }
 
-    public void mergeRecursive(ArrayList<String> list0, ArrayList<String> list1, ArrayList<String> merged) {
+    public ArrayList<String> mergeRecursive(ArrayList<String> list0, ArrayList<String> list1, ArrayList<String> merged) {
       if(list0.size() == 0 && list1.size() == 0) {
-        return new ArrayList<String>();
+        return merged;
       } else if(list0.size() != 0 && list1.size() == 0) {
         for(String el: list0) {
           merged.add(el);
         }
+        return merged;
       } else if(list0.size() == 0 && list1.size() != 0) {
         for(String el: list1) {
           merged.add(el);
         }
+        return merged;
       } else if(list0.get(0).compareTo(list1.get(0)) <= 0) {
         merged.add(list0.remove(0));
-        return mergeRecursive(list0, list1, list2);
       } else if(list0.get(0).compareTo(list1.get(0)) > 0) {
         merged.add(list1.remove(0));
-        return mergeRecursive(list0, list1, list2);
       }
+      System.out.println("4".compareTo("10"));
+      mergeRecursive(list0, list1, merged);
     }
 
 
